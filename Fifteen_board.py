@@ -7,9 +7,9 @@ Created on Sat Feb 20 20:23:48 2021
 """
 from copy import deepcopy
 from time import sleep
-#import pandas
+
 class Fifteen_board:
-    def __init__(self):
+    def __init__(self,solve):
         self.ground_truth={}
         for keys in range(15):
             self.ground_truth[keys+1]=(keys//4,keys%4)
@@ -25,7 +25,9 @@ class Fifteen_board:
         self.orignal_representation={}
         self.frontier={}
         self.counter=0
-        
+        self.start=deepcopy(solve)
+        self.start_str=self.string(self.start)
+        #self.expanded.append(self.ground_truth_str)
     def find_zero(self,solve):
         """
         
@@ -39,7 +41,8 @@ class Fifteen_board:
          
         Returns
         -------
-        i,j - index position of 0 in the list solve
+        i,j - Int
+            Index position of 0 in the list solve
         """
         
         for i,x in enumerate(solve):
@@ -47,6 +50,37 @@ class Fifteen_board:
                 j=x.index(0)
                 break
         return i,j
+    
+    def cost(self,R,h=4):
+        """
+        
+        This Function calculates cost for each move/action
+
+        Parameters
+        ----------
+        R : the new configuration/state for which cost needs
+        to be calculated
+        h : length of the board
+
+        Returns
+        -------
+        cost : Int
+            It is the cost of the state i.e. its an factor to 
+            decide how close it is to the final/desired state
+
+        """
+        #c=0
+        cost=0
+        for ab in range(h):
+            for ac in range(h):
+                gx,gy=self.ground_truth[R[ab][ac]]
+                
+                c=abs(ab-gx)+abs(ac-gy)
+                cost=cost+c
+        final_counter=self.counter+cost
+        #print(final_counter)
+        #print(R)
+        return final_counter
     
     
     def left_move(self,solve_a,pos_0,pos_1):
@@ -71,13 +105,15 @@ class Fifteen_board:
         if pos_1>0:
             #solve_t=solve_a
             solve_t=deepcopy(list(solve_a))
-            temp=deepcopy(list(solve_a))
-            pos_1=pos_1-1     
+            
+            pos_1=pos_1-1
             temp=solve_t[pos_0][pos_1]
             solve_t[pos_0][pos_1]=0
             solve_t[pos_0][pos_1+1]=temp
             score=self.string(solve_t)
-            self.parent_orignal_data[score]=[solve_t,temp]
+            temp1=deepcopy(list(solve_a))
+            parent_score=self.string(temp1)
+            
             cost=self.cost(solve_t)
             
             for data in self.expanded:
@@ -87,11 +123,12 @@ class Fifteen_board:
                 
                     break
             #self.cost_data[score]=cost    
+            self.parent_orignal_data[score]=parent_score
             self.frontier[score]=cost   
             self.orignal_representation[score]=solve_t
             return solve_t
-        
-      def right_move(self,solve_a,pos_0,pos_1):
+    
+    def right_move(self,solve_a,pos_0,pos_1):
         """
         
         This function moves the zero to right of the list
@@ -119,8 +156,12 @@ class Fifteen_board:
             solve_t[pos_0][pos_1]=0
             solve_t[pos_0][pos_1-1]=temp
             score=self.string(solve_t)
+            temp1=deepcopy(list(solve_a))
+            parent_score=self.string(temp1)
+            
+            cost=self.cost(solve_t)
             #score=self.string(solve_t)
-            self.parent_orignal_data[score]=[solve_t,temp]
+            #self.parent_orignal_data[score]=[solve_t,temp]
             cost=self.cost(solve_t)
 
                     
@@ -130,6 +171,7 @@ class Fifteen_board:
                     return None
                 
                     break
+            self.parent_orignal_data[score]=parent_score
             self.frontier[score]=cost 
             self.orignal_representation[score]=solve_t
             return solve_t
@@ -163,8 +205,12 @@ class Fifteen_board:
             solve_t[pos_0][pos_1]=0
             solve_t[pos_0-1][pos_1]=temp
             score=self.string(solve_t)
-            self.parent_orignal_data[score]=[solve_t,temp]
+            temp1=deepcopy(list(solve_a))
+            parent_score=self.string(temp1)
+            
             cost=self.cost(solve_t)
+            #self.parent_orignal_data[score]=[solve_t,temp]
+            #cost=self.cost(solve_t)
             
             for data in self.expanded:
                 if int(score)== int(data):
@@ -172,6 +218,7 @@ class Fifteen_board:
                     return None
                 
                     break
+            self.parent_orignal_data[score]=parent_score
             self.frontier[score]=cost 
             self.orignal_representation[score]=solve_t
             return solve_t
@@ -207,10 +254,14 @@ class Fifteen_board:
             solve_t[pos_0][pos_1]=0
             solve_t[pos_0+1][pos_1]=temp
             score=self.string(solve_t)
+            temp1=deepcopy(list(solve_a))
+            parent_score=self.string(temp1)
+            
+            cost=self.cost(solve_t)
             #print(self.expanded)
             #print("111")
-            self.parent_orignal_data[score]=[solve_t,temp]
-            cost=self.cost(solve_t)
+            #self.parent_orignal_data[score]=[solve_t,temp]
+            #cost=self.cost(solve_t)
             
             for data in self.expanded:
                 if int(score)== int(data):
@@ -218,6 +269,7 @@ class Fifteen_board:
                     return None
                 
                     break
+            self.parent_orignal_data[score]=parent_score
             self.frontier[score]=cost 
             self.orignal_representation[score]=solve_t
             return solve_t
