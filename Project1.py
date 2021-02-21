@@ -21,3 +21,4 @@ solve=[[1, 6, 2, 3], [9,5, 7, 4], [0, 10, 11, 8] , [13, 14, 15, 12]]
 Fifteen_board=Fifteen_board(solve)
 pos_x,pos_y=Fifteen_board.find_zero(solve)
 explored=Fifteen_board.calculate(solve,pos_x,pos_y)
+#solve.index(1)
