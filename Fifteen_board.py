@@ -141,6 +141,73 @@ class Fifteen_board:
         #print(R)
         return final_counter
     
+    def calculate(self,solve,pos_0,pos_1):
+        
+        """
+        Recursive function that  selects which move is best to reach 
+        the  goal and verifies the new state if it is goal or not 
+        and if it is it will stop recurssion.
+
+        Parameters
+        ----------
+        solve : List
+            List of the state on which actions need to be taken
+        pos_0 : int
+            x position/row index of zero in hte list
+        pos_1 : int
+            y position/column index of zero in hte list
+
+        Returns
+        -------
+        path : List
+            Returns the optimal path that needs to be followed
+            to reach from start goal to end goal0
+
+        """
+        
+        #self.counter=self.counter+1
+        self.counter=self.counter
+        #print("counter that is updating",self.counter)
+        current_t=deepcopy(solve)
+        #self.expende.append(current_t)
+        R=self.right_move(current_t,pos_0,pos_1)
+        L=self.left_move(current_t,pos_0,pos_1)
+        U=self.up_move(current_t,pos_0,pos_1)
+        D=self.down_move(current_t,pos_0,pos_1)
+        #print("self_frontier",self.frontier)
+        
+        c=min(self.frontier,key=self.frontier.get)
+        #print(c)
+        solve=self.orignal_representation[c]
+        print(solve)
+        #c=i
+       # print("min_c",c)
+        del self.frontier[c]
+        
+        self.expanded.append(c)
+        boolean=self.is_goal_reached(c)         
+        path=[]   
+        #print("boolean",boolean)
+        if boolean==0:
+            pos_0,pos_1=self.find_zero(solve)
+            return self.calculate(solve, pos_0, pos_1)
+            
+        elif boolean==1:
+            loop=self.parent_orignal_data[self.ground_truth_str]
+            
+            #print(self.expanded)
+            print(loop)
+            path.append(self.ground_truth_str)
+            while(int(self.start_str)!= int(loop)):
+                path.append(loop)
+                #sleep(5)
+                loop=self.parent_orignal_data[loop]
+                print(loop)
+            path.append(self.start_str)
+            print(path)
+            #print(self.expanded)
+            return path
+    
     
     def left_move(self,solve_a,pos_0,pos_1):
         """
