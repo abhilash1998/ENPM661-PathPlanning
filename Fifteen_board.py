@@ -51,6 +51,32 @@ class Fifteen_board:
                 break
         return i,j
     
+    def string(self,solve_t):
+        """
+        Converts the list of the state into string for easy comparison 
+        when further converted into integer
+
+        Parameters
+        ----------
+        solve_t : List
+            List which contains the state of the game
+
+        Returns
+        -------
+        c : str
+            String of the state 
+
+        """
+        #print("solve_t",solve_t)
+        c=""
+        for i in solve_t:
+            for j in i:
+                if(j<10):
+                    c=str(c)+("0"+str(j))
+                else:
+                    c=c+str(j)
+        return c
+    
     def cost(self,R,h=4):
         """
         
