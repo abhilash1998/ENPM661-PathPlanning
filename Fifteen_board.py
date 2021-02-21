@@ -77,6 +77,39 @@ class Fifteen_board:
                     c=c+str(j)
         return c
     
+    
+    def is_goal_reached(self,c):
+        """
+        Checking if the goal is attained by the current state.
+        If not attended then adds the selected state to the expanded
+        list
+        Parameters
+        ----------
+        c : str
+            String with selected state.
+
+        Returns
+        -------
+        int
+            1 : If goal state is attended
+            0 : If goal state is  not atttended
+
+        """  
+        
+        #print(self.counter)
+        #print(self.orignal_representation[c])
+        #sleep(5)
+        #print("int(c)",int(c))
+        if int(c)==int(self.ground_truth_str):
+            
+            return 1
+            
+        else:
+            self.expanded.append(c)
+            return 0
+        
+        
+    
     def cost(self,R,h=4):
         """
         
