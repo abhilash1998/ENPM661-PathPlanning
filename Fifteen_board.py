@@ -40,7 +40,8 @@ class Fifteen_board:
     
         Returns
         -------
-        New list encorporating new movement if possible or None.
+        solve_t:List
+            New list encorporating new movement if possible or None.
     
         """
         if pos_1>0:
@@ -65,4 +66,134 @@ class Fifteen_board:
             self.frontier[score]=cost   
             self.orignal_representation[score]=solve_t
             return solve_t
+        
+      def right_move(self,solve_a,pos_0,pos_1):
+        """
+        
+        This function moves the zero to right of the list
+        
+      
     
+        Parameters
+        ----------
+        solve_a : List
+            It is a list of the current state from which the 
+            number zero is moved to the right
+        pos_zero : List
+            List stores the position of zero.
+    
+        Returns
+        -------
+        solve_t:List
+            New list encorporating new movement if possible or None.
+    
+        """
+        if pos_1<len(solve_a)-1:
+            solve_t=deepcopy(list(solve_a))
+            pos_1=pos_1+1     
+            temp=solve_t[pos_0][pos_1]
+            solve_t[pos_0][pos_1]=0
+            solve_t[pos_0][pos_1-1]=temp
+            score=self.string(solve_t)
+            #score=self.string(solve_t)
+            self.parent_orignal_data[score]=[solve_t,temp]
+            cost=self.cost(solve_t)
+
+                    
+            for data in self.expanded:
+                if int(score)== int(data):
+                    #print("Present")
+                    return None
+                
+                    break
+            self.frontier[score]=cost 
+            self.orignal_representation[score]=solve_t
+            return solve_t
+    
+    
+    def down_move(self,solve_a,pos_0,pos_1):
+        """
+        
+        This function moves the zero to down of the list
+        
+      
+    
+        Parameters
+        ----------
+        solve_a : List
+            It is a list of the current state from which the 
+            number zero is moved to the down
+        pos_zero : List
+            List stores the position of zero.
+    
+        Returns
+        -------
+        solve_t:List
+            New list encorporating new movement if possible or None.
+    
+        """
+        if pos_0<len(solve_a)-1:
+            solve_t=deepcopy(list(solve_a))
+            pos_0=pos_0+1     
+            temp=solve_t[pos_0][pos_1]
+            solve_t[pos_0][pos_1]=0
+            solve_t[pos_0-1][pos_1]=temp
+            score=self.string(solve_t)
+            self.parent_orignal_data[score]=[solve_t,temp]
+            cost=self.cost(solve_t)
+            
+            for data in self.expanded:
+                if int(score)== int(data):
+                    #print("Present")
+                    return None
+                
+                    break
+            self.frontier[score]=cost 
+            self.orignal_representation[score]=solve_t
+            return solve_t
+    """    for i in self.expanded:
+            if int(i)=="""
+    
+    
+    def up_move(self,solve_a,pos_0,pos_1):
+        """
+        
+        This function moves the zero to down of the list
+        
+      
+    
+        Parameters
+        ----------
+        solve_a : List
+            It is a list of the current state from which the 
+            number zero is moved to the down
+        pos_zero : List
+            List stores the position of zero.
+    
+        Returns
+        -------
+        solve_t:List
+            New list encorporating new movement if possible or None.
+    
+        """
+        if pos_0>0:
+            solve_t=deepcopy(list(solve_a))
+            pos_0=pos_0-1     
+            temp=solve_t[pos_0][pos_1]
+            solve_t[pos_0][pos_1]=0
+            solve_t[pos_0+1][pos_1]=temp
+            score=self.string(solve_t)
+            #print(self.expanded)
+            #print("111")
+            self.parent_orignal_data[score]=[solve_t,temp]
+            cost=self.cost(solve_t)
+            
+            for data in self.expanded:
+                if int(score)== int(data):
+                    #print("Present")
+                    return None
+                
+                    break
+            self.frontier[score]=cost 
+            self.orignal_representation[score]=solve_t
+            return solve_t
