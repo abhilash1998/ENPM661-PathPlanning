@@ -25,6 +25,30 @@ class Fifteen_board:
         self.orignal_representation={}
         self.frontier={}
         self.counter=0
+        
+    def find_zero(self,solve):
+        """
+        
+        This function finds the position of 0 in the list and return 
+        the corresponding index
+        Parameters
+        ---------
+        solve:List
+            It is a list of the state from which the index of 0 
+            needs to be found
+         
+        Returns
+        -------
+        i,j - index position of 0 in the list solve
+        """
+        
+        for i,x in enumerate(solve):
+            if 0 in x:
+                j=x.index(0)
+                break
+        return i,j
+    
+    
     def left_move(self,solve_a,pos_0,pos_1):
         """
         
