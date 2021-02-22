@@ -169,19 +169,24 @@ class Fifteen_board:
         self.counter=self.counter
         #print("counter that is updating",self.counter)
         current_t=deepcopy(solve)
-        #self.expende.append(current_t)
-        R=self.right_move(current_t,pos_0,pos_1)
-        L=self.left_move(current_t,pos_0,pos_1)
-        U=self.up_move(current_t,pos_0,pos_1)
-        D=self.down_move(current_t,pos_0,pos_1)
+        #Action called
+        self.right_move(current_t,pos_0,pos_1)
+        self.left_move(current_t,pos_0,pos_1)
+        self.up_move(current_t,pos_0,pos_1)
+        self.down_move(current_t,pos_0,pos_1)
         #print("self_frontier",self.frontier)
         
+        # Selected the best action from the frontier with the help of cost
         c=min(self.frontier,key=self.frontier.get)
         #print(c)
+        
+        # The explored node is deleted from the Frontier node and is added
+        #to the expaneded node
+        
         solve=self.orignal_representation[c]
-        print(solve)
+        #print(solve)
         #c=i
-       # print("min_c",c)
+        #print("min_c",c)
         del self.frontier[c]
         
         self.expanded.append(c)
@@ -193,18 +198,21 @@ class Fifteen_board:
             return self.calculate(solve, pos_0, pos_1)
             
         elif boolean==1:
+            #Appends the path that need to be followed
+            #by getting the parents of the nodes recursively
+            
             loop=self.parent_orignal_data[self.ground_truth_str]
             
             #print(self.expanded)
-            print(loop)
+            #print(loop)
             path.append(self.ground_truth_str)
             while(int(self.start_str)!= int(loop)):
                 path.append(loop)
                 #sleep(5)
                 loop=self.parent_orignal_data[loop]
-                print(loop)
+                #print(loop)
             path.append(self.start_str)
-            print(path)
+            #print(path)
             #print(self.expanded)
             return path
     
@@ -228,20 +236,24 @@ class Fifteen_board:
             New list encorporating new movement if possible or None.
     
         """
+        #Checks if the move is possible 
         if pos_1>0:
             #solve_t=solve_a
             solve_t=deepcopy(list(solve_a))
-            
+            # Makes the move and gives the updated state
             pos_1=pos_1-1
             temp=solve_t[pos_0][pos_1]
             solve_t[pos_0][pos_1]=0
             solve_t[pos_0][pos_1+1]=temp
+            #Converted to string for easy comparision and representation
             score=self.string(solve_t)
             temp1=deepcopy(list(solve_a))
             parent_score=self.string(temp1)
             
             cost=self.cost(solve_t)
             
+            #Checks if the current node lies in the expanded nodes so 
+            #that the pathobtained  is acyclic
             for data in self.expanded:
                 if int(score)== int(data):
                     #print("Present")
