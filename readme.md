@@ -1,11 +1,14 @@
 The code is done on Anaconda Spyder on Python 3.7 and recommended to perform on the same if possible
+
 Libraries and command to install those:
+
     Virtual Evirobnment with Python 3.7 : conda create -n myenv python=3.7 
     Numpy : conda install -c anaconda numpy
     Matplotlib -: conda install -c conda-forge matplotlib 
     Imutils - conda install -c conda-forge imutils
 
 Instruction to run the code:
+
     1. Create a Virtual Environment for python 3.7
         conda create -n myenv python=3.7
     2. Activate the Virtual Environment
@@ -15,6 +18,7 @@ Instruction to run the code:
         conda install -c conda-forge matplotlib 
         conda install -c conda-forge imutils
     4. Then depending on which case you need to run, uncomment the corresponding line
+    
         e.g In the code 
         #solve=[[1, 2, 3, 4],[ 5, 6,0, 8], [9, 10, 7, 12] , [13, 14, 11, 15]]        #Test_case_1
         #solve=[[1, 0, 3, 4],[ 5, 2, 7, 8], [9, 6, 10, 11] , [13, 14, 15, 12]]       #Test_case_2
