@@ -52,3 +52,6 @@ Instruction to run the code:
         1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 0    <--------Eng goal state
         
     5. Make sure the all files are in same folder and run the Project1.py
+
+
+Note the test_case_1.txt is nodePath_test_case_1.txt
