@@ -34,6 +34,7 @@ Instruction to run the code:
         #solve=[[1, 6, 2, 3], [9,5, 7, 4], [0, 10, 11, 8] , [13, 14, 15, 12]]        #Test_case_5
 
         And change the name of the file to the name of Test_case to save into corresponsding file 
+        
         file1=open("test_case_5.txt","w")
         For test case 4
         file1=open("test_case_4.txt","w")
@@ -49,3 +50,5 @@ Instruction to run the code:
         1 2 3 4 5 6 7 0 9 10 11 8 13 14 15 12 
         1 2 3 4 5 6 7 8 9 10 11 0 13 14 15 12 
         1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 0    <--------Eng goal state
+        
+    5. Make sure the all files are in same folder and run the Project1.py
